@@ -72,7 +72,11 @@ def rotation_matrix(u,theta):
 def gaussian_kernel(size, sigma=1):
     """ Returns a normalized 3D gauss kernel array for convolutions """
     size = int(size) // 2
-    x, y, z = np.mgrid[-size:size+1, -size:size+1, -size:size+1]
+    # Using np.meshgrid
+    x_vals = np.arange(-size, size+1)
+    y_vals = np.arange(-size, size+1)
+    z_vals = np.arange(-size, size+1)
+    x, y, z = np.meshgrid(x_vals, y_vals, z_vals)
     g = np.exp(-(x**2 + y**2 + z**2) / (2 * sigma**2))
     
     return g / g.sum()
