@@ -9,6 +9,7 @@ import dask.array as da
 from utilities import load_xyz, gaussian_kernel
 from ptable_dict import ptable
 from dask import delayed
+import time
 
 def generate_density_grid(xyz_path, sigma, voxel_size, chunk_size=100):
     """
@@ -58,6 +59,8 @@ def generate_density_grid(xyz_path, sigma, voxel_size, chunk_size=100):
     for coord, symbol in zip(coords, symbols):
         grid_coord = (coord / voxel_size).astype(int)
         density_grid[grid_coord[1], grid_coord[0], grid_coord[2]] += ptable[symbol] * voxel_size ** 3
+
+    
 
     # Create a Gaussian kernel
     if sigma:
